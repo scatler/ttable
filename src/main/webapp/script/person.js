@@ -12,10 +12,14 @@ app.controller('personsListController', function ($scope, $rootScope, personServ
         sortInfo: $scope.sortInfo,
 
         columnDefs: [
-            { field: 'id', displayName: 'Id' },
-            { field: 'name', displayName: 'Name' },
-            { field: 'description', displayName: 'Description' },
-            { field: '', width: 30, cellTemplate: '<span class="glyphicon glyphicon-remove remove" ng-click="deleteRow(row)"></span>' }
+            {field: 'id', displayName: 'Id'},
+            {field: 'name', displayName: 'Name'},
+            {field: 'description', displayName: 'Description'},
+            {
+                field: '',
+                width: 30,
+                cellTemplate: '<span class="glyphicon glyphicon-remove remove" ng-click="deleteRow(row)"></span>'
+            }
         ],
 
         multiSelect: false,
@@ -131,21 +135,21 @@ app.controller('alertMessagesController', function ($scope) {
     // Picks up the event to display a saved message.
     $scope.$on('personSaved', function () {
         $scope.alerts = [
-            { type: 'success', msg: 'Record saved successfully!' }
+            {type: 'success', msg: 'Record saved successfully!'}
         ];
     });
 
     // Picks up the event to display a deleted message.
     $scope.$on('personDeleted', function () {
         $scope.alerts = [
-            { type: 'success', msg: 'Record deleted successfully!' }
+            {type: 'success', msg: 'Record deleted successfully!'}
         ];
     });
 
     // Picks up the event to display a server error message.
     $scope.$on('error', function () {
         $scope.alerts = [
-            { type: 'danger', msg: 'There was a problem in the server!' }
+            {type: 'danger', msg: 'There was a problem in the server!'}
         ];
     });
 

@@ -1,3 +1,4 @@
+/*
 package com.cortez.samples.javaee7angular.pagination;
 
 import com.cortez.samples.javaee7angular.data.Person;
@@ -7,11 +8,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.List;
 
+*/
 /**
  * Wraps all the information needed to paginate a table.
  *
  * @author Roberto Cortez
- */
+ *//*
+
 @XmlRootElement
 public class PaginatedListWrapper implements Serializable {
     private Integer currentPage;
@@ -71,3 +74,4 @@ public class PaginatedListWrapper implements Serializable {
         this.list = list;
     }
 }
+*/
