@@ -21,12 +21,15 @@ import java.util.concurrent.TimeoutException;
 
 @Startup
 @Singleton
-public class ReceiverController {
+public class MainController {
     private final static String QUEUE_NAME = "hello";
 
     @PostConstruct
     void init() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
+
+        //TODO:register on main (stationId) or maybe with queue (I am server on station {id} register me {url})
+        //TODO:register in queue
 
         factory.setHost("localhost");
         Connection connection = null;
@@ -49,7 +52,10 @@ public class ReceiverController {
                 String message = new String(body, "UTF-8");
                 System.out.println(" [x] Received '" + message + "'");
                 if (message.equals("Update")) {
-                    TimeTableEndpoint.send(testMessage);
+                    //Request new data
+                    RestController.requestUpdate();
+
+                    //TimeTableEndpoint.send(testMessage);
                 }
             }
         };
