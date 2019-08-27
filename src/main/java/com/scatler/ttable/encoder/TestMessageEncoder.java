@@ -1,13 +1,13 @@
 package com.scatler.ttable.encoder;
 
-import com.scatler.ttable.message.TestMessage;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.scatler.ttable.dto.StationTimeTableWrapper;
 
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
-public class TestMessageEncoder implements Encoder.Text<TestMessage> {
+public class TestMessageEncoder implements Encoder.Text<StationTimeTableWrapper> {
     @Override
     public void init(EndpointConfig ec) {
     }
@@ -17,7 +17,7 @@ public class TestMessageEncoder implements Encoder.Text<TestMessage> {
     }
 
     @Override
-    public String encode(TestMessage msg) {
+    public String encode(StationTimeTableWrapper msg) {
         String jsmsg = null;
         try {
             ObjectMapper mapper = new ObjectMapper();

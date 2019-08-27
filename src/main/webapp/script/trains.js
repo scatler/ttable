@@ -21,9 +21,10 @@ app.controller('timeTableController', function ($scope, $rootScope, timeTableWSS
         sortInfo: $scope.sortInfo,
 
         columnDefs: [
-            {field: 'id', displayName: 'Id'},
-            {field: 'name', displayName: 'Train'},
-            {field: 'arrival', displayName: 'Arrival Time'},
+            {field: 'trainId', displayName: 'Train #'},
+            {field: 'routeId', displayName: 'Route #'},
+            {field: 'routeName', displayName: 'Route Name'},
+            {field: 'arrivalTime', displayName: 'Arrival Time'},
             {
                 field: '',
                 width: 30,
@@ -111,7 +112,7 @@ app.factory('timeTableWSService',
             ws.onerror = function () {
                 console.log("Failed to open a connection");
             };
-            ws.onmessage = function (message) { //incoming message from JavaEE @ServerEndpoint
+            ws.onmessage = function (message) { //incoming dto from JavaEE @ServerEndpoint
                 var obj = JSON.parse(message.data);
                 $rootScope.$apply(service.callback(obj));
                 //callback is set when you create subscribe method

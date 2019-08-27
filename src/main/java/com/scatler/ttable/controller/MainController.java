@@ -1,7 +1,5 @@
 package com.scatler.ttable.controller;
 
-import com.scatler.ttable.message.TestMessage;
-import com.scatler.ttable.message.TrainDTO;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -9,28 +7,39 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
+import com.scatler.ttable.dto.StationTimeTableWrapper;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.inject.Inject;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.sql.Time;
 import java.util.concurrent.TimeoutException;
 
 @Startup
 @Singleton
 public class MainController {
+
     private final static String QUEUE_NAME = "hello";
+    private static final String COMMAND_UPDATE = "Update";
+    private static final Integer STATION_ID = 1011; // Ишим
+
+    @Inject
+    StationTimeTableWrapper wrapper;
+
+    @Inject
+    RestService restService;
+
+    @Inject
+    TimeTableEndpoint timeTableEndpoint;
 
     @PostConstruct
     void init() throws IOException, TimeoutException {
+
+        wrapper = restService.requestUpdate(STATION_ID);
+
         ConnectionFactory factory = new ConnectionFactory();
-
-        //TODO:register on main (stationId) or maybe with queue (I am server on station {id} register me {url})
-        //TODO:register in queue
-
         factory.setHost("localhost");
         Connection connection = null;
         connection = factory.newConnection();
@@ -42,20 +51,20 @@ public class MainController {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties,
                                        byte[] body) throws IOException {
-
-                //------------------------------------------------------------------------------------
+/*                //------------------------------------------------------------------------------------
                 List<TrainDTO> dtoList = new ArrayList<>();
-                dtoList.add(new TrainDTO(1,"Train 1",new Date(2019,8,26)));
-                dtoList.add(new TrainDTO(1,"Train 2",new Date(2019,8,27)));
+                dtoList.add(new TrainDTO(1,5247, "Train 1", new Date(2019, 8, 26)));
+                dtoList.add(new TrainDTO(1, 5247,"Train 2", new Date(2019, 8, 27)));
                 TestMessage testMessage = new TestMessage(dtoList);
-                //------------------------------------------------------------------------------------
+                //------------------------------------------------------------------------------------*/
                 String message = new String(body, "UTF-8");
                 System.out.println(" [x] Received '" + message + "'");
-                if (message.equals("Update")) {
+                if (message.equals(COMMAND_UPDATE)) {
                     //Request new data
-                    RestController.requestUpdate();
-
-                    //TimeTableEndpoint.send(testMessage);
+                    wrapper = restService.requestUpdate(STATION_ID);
+                    //Find changes
+                    //Display with changes
+                    timeTableEndpoint.send(wrapper);
                 }
             }
         };

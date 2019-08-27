@@ -1,7 +1,8 @@
 package com.scatler.ttable.controller;
 
+import com.scatler.ttable.dto.StationTimeTableWrapper;
 import com.scatler.ttable.encoder.TestMessageEncoder;
-import com.scatler.ttable.message.TestMessage;
+import com.scatler.ttable.dto.TestMessage;
 
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
@@ -50,7 +51,7 @@ public class TimeTableEndpoint {
         logger.log(Level.INFO, "Connection error.");
     }
 
-    public static void send(TestMessage msg) {
+    public void send(StationTimeTableWrapper msg) {
         /* Send updates to all open WebSocket sessions for this match */
         for (Session session : peers) {
             if (session.isOpen()) {

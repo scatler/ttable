@@ -1,12 +1,12 @@
 package com.scatler.ttable.rest;
 
 import com.scatler.ttable.data.Train;
-import com.scatler.ttable.message.TrainDTO;
-import com.scatler.ttable.message.TrainsWrapper;
+import com.scatler.ttable.dto.StationTimeTableWrapper;
+import com.scatler.ttable.dto.TrainDTO;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.ApplicationPath;
@@ -17,7 +17,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 @Stateless
 @ApplicationPath("/resources")
@@ -27,7 +26,10 @@ import java.util.List;
 public class TrainResource extends Application {
     @PersistenceContext
     private EntityManager entityManager;
+    @Inject
+    StationTimeTableWrapper wrapper;
 
+/*
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
@@ -40,8 +42,17 @@ public class TrainResource extends Application {
         TrainsWrapper trainsWrapper = new TrainsWrapper(dtos);
         return trainsWrapper;
     }
+*/
+
 
     @GET
+    @Path("list")
+    @Produces(MediaType.APPLICATION_JSON)
+    public StationTimeTableWrapper getTrainList() {
+        return wrapper;
+    }
+
+/*    @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public TrainDTO getPerson(@PathParam("id") Long id) {
@@ -49,5 +60,5 @@ public class TrainResource extends Application {
         ModelMapper modelMapper = new ModelMapper();
         TrainDTO dto = modelMapper.map(train, TrainDTO.class);
         return dto;
-    }
+    }*/
 }

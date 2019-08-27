@@ -3,49 +3,26 @@
 <html ng-app="trains">
 <head>
     <title>javaee7-angular</title>
-
-    <!-- build:css css/third-party.css -->
-    <!-- bower:css -->
     <link rel="stylesheet" href="lib/dependencies/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="lib/dependencies/css/ng-grid.min.css"/>
-    <!-- endbower -->
-    <!-- endbuild -->
-
-    <!-- build:css css/application.css -->
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
-    <!-- endbuild -->
-
-    <!-- build:js lib/third-party.js -->
-    <!-- bower:js -->
     <script src="lib/dependencies/angular.min.js"></script>
     <script src="lib/dependencies/angular-resource.min.js"></script>
     <script src="lib/dependencies/jquery.min.js"></script>
     <script src="lib/dependencies/ui-bootstrap-tpls.min.js"></script>
     <script src="lib/dependencies/ng-grid.min.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
-
-    <!-- build:js script/all.js -->
     <script src="script/trains.js"></script>
-    <!-- endbuild -->
 </head>
-
 <body>
-
 <h1>Java EE1 - Angular Application</h1>
-
 <br/>
-
-
 <!-- Specify a Angular controller script that binds Javascript variables to the grid.-->
 <div class="grid" ng-controller="timeTableController">
     <div>
         <h3>TimeTable</h3>
     </div>
-
     <!-- Binds the grid component to be displayed. -->
     <div class="gridStyle" ng-grid="gridOptions"></div>
-
 </div>
 </body>
 </html>
