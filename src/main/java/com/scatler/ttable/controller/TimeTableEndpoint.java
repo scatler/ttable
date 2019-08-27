@@ -1,8 +1,7 @@
 package com.scatler.ttable.controller;
 
 import com.scatler.ttable.dto.StationTimeTableWrapper;
-import com.scatler.ttable.encoder.TestMessageEncoder;
-import com.scatler.ttable.dto.TestMessage;
+import com.scatler.ttable.encoder.TimeTableEncoder;
 
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
@@ -19,10 +18,9 @@ import java.util.logging.Logger;
 
 @ServerEndpoint(
         value = "/timetable",
-        encoders = {TestMessageEncoder.class}
+        encoders = {TimeTableEncoder.class}
 )
 public class TimeTableEndpoint {
-
     private static final Logger logger = Logger.getLogger("TimeTable");
     /**
      * All open WebSocket sessions

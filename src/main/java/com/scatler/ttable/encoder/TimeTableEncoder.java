@@ -7,7 +7,7 @@ import com.scatler.ttable.dto.StationTimeTableWrapper;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
-public class TestMessageEncoder implements Encoder.Text<StationTimeTableWrapper> {
+public class TimeTableEncoder implements Encoder.Text<StationTimeTableWrapper> {
     @Override
     public void init(EndpointConfig ec) {
     }

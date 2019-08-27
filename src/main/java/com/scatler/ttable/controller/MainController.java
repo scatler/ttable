@@ -8,37 +8,32 @@ import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import com.scatler.ttable.dto.StationTimeTableWrapper;
+import com.scatler.ttable.dto.TimeTableBean;
+import com.scatler.ttable.rest.RestService;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 import java.io.IOException;
-import java.sql.Time;
 import java.util.concurrent.TimeoutException;
 
 @Startup
 @Singleton
 public class MainController {
-
     private final static String QUEUE_NAME = "hello";
     private static final String COMMAND_UPDATE = "Update";
     private static final Integer STATION_ID = 1011; // Ишим
-
     @Inject
-    StationTimeTableWrapper wrapper;
-
+    TimeTableBean timeTableBean;
     @Inject
     RestService restService;
-
     @Inject
     TimeTableEndpoint timeTableEndpoint;
 
     @PostConstruct
     void init() throws IOException, TimeoutException {
-
-        wrapper = restService.requestUpdate(STATION_ID);
-
+        timeTableBean.setTimeTableWrapper(restService.requestUpdate(STATION_ID));
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         Connection connection = null;
@@ -61,10 +56,10 @@ public class MainController {
                 System.out.println(" [x] Received '" + message + "'");
                 if (message.equals(COMMAND_UPDATE)) {
                     //Request new data
-                    wrapper = restService.requestUpdate(STATION_ID);
+                    timeTableBean.setTimeTableWrapper(restService.requestUpdate(STATION_ID));
                     //Find changes
                     //Display with changes
-                    timeTableEndpoint.send(wrapper);
+                    timeTableEndpoint.send(timeTableBean.getTimeTableWrapper());
                 }
             }
         };
