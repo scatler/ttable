@@ -7,7 +7,7 @@ services.factory('timeTableWSService',
                 return;
             }
             //var ws = new WebSocket("ws://" + window.location.host + "/timetable");
-            var ws = new WebSocket("ws://localhost:8080/javaee7-angular/timetable");
+            var ws = new WebSocket("ws://localhost:9280/javaee7-angular/timetable");
 
 
             //TODO: see commented code

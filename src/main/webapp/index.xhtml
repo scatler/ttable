@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
@@ -20,11 +20,11 @@
     </h:head>
     <h:body>
         <p:clock/>
-        <!--<p:clock pattern="HH:mm:ss dd.MM.yyyy"/>-->
+        <p:clock pattern="HH:mm:ss dd.MM.yyyy"/>
     </h:body>
     <div ng-app="trains" class="grid" ng-controller="timeTableController">
         <div>
-            <h3>Станция Ишим</h3>
+            <h3>TimeTable</h3>
         </div>
         <!-- Binds the grid component to be displayed. -->
         <div class="gridStyle" ng-grid="gridOptions"></div>

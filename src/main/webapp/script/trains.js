@@ -14,15 +14,10 @@ app.controller('timeTableController', function ($scope, $rootScope, timeTableWSS
         useExternalSorting: true,
         sortInfo: $scope.sortInfo,
         columnDefs: [
-            {field: 'trainId', displayName: 'Train #'},
+            {field: 'trainId', displayName: 'Train #',  width: '10%' },
             {field: 'routeId', displayName: 'Route #'},
             {field: 'routeName', displayName: 'Route Name'},
             {field: 'arrivalTime', displayName: 'Arrival Time'},
-            {
-                field: '',
-                width: 30,
-                cellTemplate: '<span class="glyphicon glyphicon-remove remove" ng-click="deleteRow(row)"></span>'
-            }
         ],
         multiSelect: false,
         selectedItems: []
@@ -52,7 +47,7 @@ app.factory('timeTableWSService',
             if (service.ws) {
                 return;
             }
-            var ws = new WebSocket("ws://localhost:8080/javaee7-angular/timetable");
+            var ws = new WebSocket("ws://localhost:9280/timetable");
             //TODO: see commented code
             ws.onopen = function () {
                 /*                ws.send(JSON.stringify({
